@@ -14,13 +14,13 @@ import javax.persistence.Table;
 public class Animal {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-	@Column(name="SPEC")
+	@Column(name="SPEC",length=50,nullable=false)
 	private String espece;
 	@ManyToOne
 	@JoinColumn(name="PROP_ID")
 	private Proprietaire proprietaire;
 	@Column(name="NUMA")
-	private String numAnimal;
+	private int numAnimal;
 	
 	public Integer getId() {
 		return id;
@@ -40,10 +40,10 @@ public class Animal {
 	public void setProprietaire(Proprietaire proprietaire) {
 		this.proprietaire = proprietaire;
 	}
-	public String getNumAnimal() {
+	public int getNumAnimal() {
 		return numAnimal;
 	}
-	public void setNumAnimal(String numAnimal) {
+	public void setNumAnimal(int numAnimal) {
 		this.numAnimal = numAnimal;
 	}
 }

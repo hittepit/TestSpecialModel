@@ -21,12 +21,12 @@ public class Facture {
 	@ManyToOne
 	@JoinColumn(name="CLID")
 	private Client client;
-	@Column(name="DATE_FACT")
+	@Column(name="DATE_FACT",nullable=false)
 	private Date date;
-	@Column(name="NOMA")
+	@Column(name="NOMA",length=50,nullable=false)
 	private String nomAnimal;
 	@Column(name="CODA")
-	private String codeAnimal;
+	private int codeAnimal;
 	@OneToMany(mappedBy="facture")
 	private List<Ligne> lignes;
 	
@@ -54,10 +54,10 @@ public class Facture {
 	public void setNomAnimal(String nomAnimal) {
 		this.nomAnimal = nomAnimal;
 	}
-	public String getCodeAnimal() {
+	public int getCodeAnimal() {
 		return codeAnimal;
 	}
-	public void setCodeAnimal(String codeAnimal) {
+	public void setCodeAnimal(int codeAnimal) {
 		this.codeAnimal = codeAnimal;
 	}
 	public List<Ligne> getLignes() {

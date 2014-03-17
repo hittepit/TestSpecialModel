@@ -26,7 +26,7 @@ public class TestModel extends AbstractTransactionalTestNGSpringContextTests{
 	@Test
 	public void testFindSoin(){
 		Soin soin = (Soin) getSession().get(Soin.class, 100);
-		assertEquals(soin.getCodeSoin(), "VER1");
+		assertEquals(soin.getIndex(), 1);
 		assertEquals(soin.getAnimal().getEspece(),"Chien");
 		assertEquals(soin.getAnimal().getProprietaire().getClientNum(),"C1");
 	}

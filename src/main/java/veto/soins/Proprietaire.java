@@ -12,8 +12,9 @@ import javax.persistence.Table;
 public class Proprietaire {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
+	@Column(name="NOM",length=255,nullable=false)
 	private String nom;
-	@Column(name="NUM")
+	@Column(name="NUM",length=6,nullable=false)
 	private String clientNum;
 	public Integer getId() {
 		return id;

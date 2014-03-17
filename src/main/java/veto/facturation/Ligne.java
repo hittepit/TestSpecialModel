@@ -12,15 +12,17 @@ import javax.persistence.ManyToOne;
 public class Ligne {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-	@Column(name="PRIX")
+	@Column(name="PRIX",nullable=false)
 	private double prixUnitaire;
+	@Column(name="QUANTITE",nullable=false)
 	private int quantite;
 	@ManyToOne
 	@JoinColumn(name="FACT_ID")
 	private Facture facture;
-	@ManyToOne
-	@JoinColumn(name="PREST_ID")
-	private Prestation prestation;
+	@Column(name="INTITULE",nullable=false,length=255)
+	private String intitule;
+	@Column(name="IND",nullable=false)
+	private int index;
 	
 	public Integer getId() {
 		return id;
@@ -46,10 +48,16 @@ public class Ligne {
 	public void setFacture(Facture facture) {
 		this.facture = facture;
 	}
-	public Prestation getPrestation() {
-		return prestation;
+	public String getIntitule() {
+		return intitule;
 	}
-	public void setPrestation(Prestation prestation) {
-		this.prestation = prestation;
+	public void setIntitule(String intitule) {
+		this.intitule = intitule;
 	}
+	public int getIndex() {
+		return index;
+	}
+	public void setIndex(int index) {
+		this.index = index;
+	}	
 }

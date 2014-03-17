@@ -10,9 +10,11 @@ import javax.persistence.Id;
 public class Client {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-	@Column(name="NUM")
+	@Column(name="NUM",nullable=false,length=6)
 	private String clientNum;
+	@Column(name="NOM",nullable=false,length=255)
 	private String nom;
+	@Column(name="VILLE",nullable=false,length=255)
 	private String ville;
 	public Integer getId() {
 		return id;

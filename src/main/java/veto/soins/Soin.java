@@ -12,9 +12,10 @@ import javax.persistence.ManyToOne;
 public class Soin {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
+	@Column(name="NOM",nullable=false,length=255)
 	private String nom;
-	@Column(name="CODE")
-	private String codeSoin;
+	@Column(name="IND",nullable=false)
+	private int index;
 	@ManyToOne
 	@JoinColumn(name="ANI_ID")
 	private Animal animal;
@@ -31,11 +32,11 @@ public class Soin {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public String getCodeSoin() {
-		return codeSoin;
+	public int getIndex() {
+		return index;
 	}
-	public void setCodeSoin(String codeSoin) {
-		this.codeSoin = codeSoin;
+	public void setIndex(int index) {
+		this.index = index;
 	}
 	public Animal getAnimal() {
 		return animal;
