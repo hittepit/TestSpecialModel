@@ -12,8 +12,6 @@ public class Client {
 	private Integer id;
 	@Column(name="NUM",nullable=false,length=6)
 	private String clientNum;
-	@Column(name="NOM",nullable=false,length=255)
-	private String nom;
 	@Column(name="VILLE",nullable=false,length=255)
 	private String ville;
 	public Integer getId() {
@@ -27,12 +25,6 @@ public class Client {
 	}
 	public void setClientNum(String clientNum) {
 		this.clientNum = clientNum;
-	}
-	public String getNom() {
-		return nom;
-	}
-	public void setNom(String nom) {
-		this.nom = nom;
 	}
 	public String getVille() {
 		return ville;

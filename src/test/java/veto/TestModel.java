@@ -35,7 +35,7 @@ public class TestModel extends AbstractTransactionalTestNGSpringContextTests{
 	public void testFindFacturePourKitty(){
 		Facture facture = (Facture) getSession().get(Facture.class,18);
 		assertEquals(facture.getNomAnimal(), "Kitty");
-		assertEquals(facture.getClient().getNom(),"Tutu");
+		assertEquals(facture.getClient().getClientNum(),"C2");
 		assertEquals(facture.getLignes().size(),2);
 	}
 	

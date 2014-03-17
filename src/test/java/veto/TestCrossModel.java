@@ -1,6 +1,7 @@
 package veto;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.fail;
 
 import java.util.List;
 
@@ -13,7 +14,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import veto.facturation.Facture;
+import veto.facturation.Ligne;
 import veto.soins.Proprietaire;
+import veto.soins.Soin;
 
 @ContextConfiguration(locations="classpath:veto/spring.xml")
 public class TestCrossModel extends AbstractTransactionalTestNGSpringContextTests {
@@ -66,6 +69,64 @@ public class TestCrossModel extends AbstractTransactionalTestNGSpringContextTest
 		List<Proprietaire> proprietaires = getSession().createQuery(hql).setParameter("maximum", 14.0).list();
 		assertEquals(proprietaires.size(), 1);
 		assertEquals(proprietaires.get(0).getNom(),"Toto");
+	}
+	
+	@Test
+	public void testFindSoinEtSonNom(){
+		String hql = "select s,l from Soin s, Ligne l where "
+				+ "l.index = s.index and "
+				+ "l.facture.codeAnimal = s.animal.numAnimal and "
+				+ "l.facture.client.clientNum = s.animal.proprietaire.clientNum";
+		
+		List<Object[]> tuples = getSession().createQuery(hql).list();
+		assertEquals(tuples.size(), 5);
+		for(Object[] tuple:tuples){
+			Soin s = (Soin) tuple[0];
+			Ligne l = (Ligne) tuple[1];
+			assertEquals(s.getIndex(), l.getIndex());
+			assertEquals(s.getAnimal().getNumAnimal(), l.getFacture().getCodeAnimal());
+		}
+	}
+	
+	@Test
+	public void testFindTotalFacturesProprietaireParSonNom(){
+		String hql = "select sum(l.prixUnitaire*l.quantite) from Ligne l, Soin s where "
+				+ "l.index = s.index and "
+				+ "l.facture.codeAnimal = s.animal.numAnimal and "
+				+ "l.facture.client.clientNum = s.animal.proprietaire.clientNum and "
+				+ "s.animal.proprietaire.nom = :nom";
+		
+		Double total = (Double) getSession().createQuery(hql).setParameter("nom", "Toto").uniqueResult();
+		
+		assertEquals(total,35.0);
+		
+		total =  (Double) getSession().createQuery(hql).setParameter("nom", "Tutu").uniqueResult();
+		
+		assertEquals(total,22.5);
+	}
+	
+	@Test
+	public void testFindTotalParProprietaire(){
+		String hql = "select s.animal.proprietaire as proprietaire, sum(l.prixUnitaire*l.quantite) as total from Ligne l, Soin s where "
+				+ "l.index = s.index and "
+				+ "l.facture.codeAnimal = s.animal.numAnimal and "
+				+ "l.facture.client.clientNum = s.animal.proprietaire.clientNum "
+				+ "group by s.animal.proprietaire";
+		
+		List<Object[]> tuples = getSession().createQuery(hql).list();
+		assertEquals(tuples.size(), 2);
+		
+		for(Object[] t:tuples){
+			Proprietaire proprietaire = (Proprietaire) t[0];
+			Double total = (Double) t[1];
+			if(proprietaire.getNom().equals("Toto")){
+				assertEquals(total,35.0);
+			} else if(proprietaire.getNom().equals("Tutu")){
+				assertEquals(total,22.5);
+			} else {
+				fail("Personne d'autre");
+			}
+		}
 	}
 	
 	private Session getSession(){

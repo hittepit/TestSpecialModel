@@ -16,8 +16,8 @@ insert into SOIN (ID,NOM,IND,ANI_ID) values (104,'Vermifuge - solution',1,11);
 --insert into PREST (ID,INTITULE,CODE) values (1001,'Rappel Vermifuge','VER2');
 --insert into PREST (ID,INTITULE,CODE) values (1002,'Vaccin maladie de Carré','CAR');
 
-insert into CLIENT (ID,NOM,NUM,VILLE) values (6,'Toto','C1','Bruxelles');
-insert into CLIENT (ID,NOM,NUM,VILLE) values (7,'Tutu','C2','Paris');
+insert into CLIENT (ID,NUM,VILLE) values (6,'C1','Bruxelles');
+insert into CLIENT (ID,NUM,VILLE) values (7,'C2','Paris');
 
 insert into FACT (ID,DATE_FACT,NOMA,CODA,CLID) values (16,'2014-03-01','Médor',1,6);
 insert into FACT (ID,DATE_FACT,NOMA,CODA,CLID) values (17,'2014-03-10','Médor',1,6);
